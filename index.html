@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "2a6f8f675cc2480981cbbc5baaf3e909"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -88,19 +96,141 @@
   </main>
 
   <script>
+    class ValidationError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "ValidationError";
+      }
+    }
+
+    function test() {
+      throw new ValidationError("Whoops!");
+    }
+
+    try {
+      test();
+    } catch(err) {
+      console.log(err.message); 
+      console.log(err.name); 
+    }
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
-      let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
-      let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+        let output = document.querySelector('output');
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        let operator = document.querySelector('#operator').value;
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
+    errorBtns[0].addEventListener('click', () => {
+      console.log('Console Log Demo');
+    });
+
+    errorBtns[1].addEventListener('click', () => {
+      console.error('Console Error Demo');
+    });
+
+    errorBtns[2].addEventListener('click', () => {
+      console.count('Count Button: ');
+    });
+
+    errorBtns[3].addEventListener('click', () => {
+      console.warn('Console Warn Button');
+    });
+
+    errorBtns[4].addEventListener('click', () => {
+      const number = 2;
+      const errorMsg = 'The number does not equal 3';
+      console.assert(number == 3, {number, errorMsg});
+    });
+
+    errorBtns[5].addEventListener('click', () => {
+      console.clear();
+    })
+
+    errorBtns[6].addEventListener('click', () => {
+      console.dir(errorBtns[6]);
+    });
+
+    errorBtns[7].addEventListener('click', () => {
+      console.dirxml(errorBtns[7]);
+    })
+
+    errorBtns[8].addEventListener('click', () => {
+      console.group();
+    });
+
+    errorBtns[9].addEventListener('click', () => {
+      console.groupEnd();
+    });
+
+    errorBtns[10].addEventListener('click', () => {
+      const classes = [
+        {
+          name: 'Software Engineering',
+          num: 110
+        },
+        {
+          name: 'Programming Languages',
+          num: 130
+        },
+        {
+          name: 'Advanced Software Engineering',
+          num: 112
+        }
+      ]
+
+      console.table(classes);
+    });
+
+    errorBtns[11].addEventListener('click', () => {
+      console.time('Timer Button');
+    });
+
+    errorBtns[12].addEventListener('click', () => {
+      console.timeEnd('Timer Button');
+    });
+
+    errorBtns[13].addEventListener('click', function handleBtnClick() {      
+      const deep = () => { deeper(); };
+      const deeper = () => { deepest(); };
+      const deepest = () => { console.trace(); };
+      deep();
+    });
+
+    errorBtns[14].addEventListener('click', () => {
+      try{
+        boom();
+      } catch (err) {
+        console.log("error!!");
+      }
+    })
+
+    try {
+      console.log('try');
+      x = y + 10;
+    } catch (err) {
+      console.error('catch');
+    } finally {
+      console.log('finally');
+    }
+
+    let json = '{ "age": 30 }';
+
+    try {
+      let user = JSON.parse(json);
+      if (!user.name) {
+        throw new SyntaxError("Incomplete data: no name");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
     // You may move this JS to another file if you wish
   </script>
 </body>
