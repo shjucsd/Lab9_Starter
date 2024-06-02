@@ -110,8 +110,7 @@
     try {
       test();
     } catch(err) {
-      console.log(err.message); 
-      console.log(err.name); 
+      console.error(err);
     }
 
     let form = document.querySelector('form');
@@ -205,9 +204,10 @@
 
     errorBtns[14].addEventListener('click', () => {
       try{
+        console.log("Sadly an error happened!");
         boom();
       } catch (err) {
-        console.log("error!!");
+        console.error("error!!");
       }
     })
 
@@ -228,7 +228,7 @@
         throw new SyntaxError("Incomplete data: no name");
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
 
     // You may move this JS to another file if you wish
