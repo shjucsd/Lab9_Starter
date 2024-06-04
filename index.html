@@ -161,7 +161,7 @@
     })
 
     errorBtns[8].addEventListener('click', () => {
-      console.group();
+      console.group('console.group');
     });
 
     errorBtns[9].addEventListener('click', () => {
@@ -202,14 +202,13 @@
       deep();
     });
 
+    window.onerror = function(event, source, lineno, colno, error) {
+    console.log("Sadly, there was an error: " + event + source);
+    };
+
     errorBtns[14].addEventListener('click', () => {
-      try{
-        console.log("Sadly an error happened!");
-        boom();
-      } catch (err) {
-        console.error("error!!");
-      }
-    })
+    boom();
+    });
 
     try {
       console.log('try');
